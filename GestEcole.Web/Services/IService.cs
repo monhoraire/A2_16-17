@@ -13,6 +13,6 @@ namespace GestEcole.Web.Services
 
         void Save(T obj);
 
-        void Delete(T obj);
+        void Delete(int id);
     }
 }

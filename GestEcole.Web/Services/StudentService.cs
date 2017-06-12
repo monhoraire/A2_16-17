@@ -24,12 +24,13 @@ namespace GestEcole.Web.Services
         /// Supprime un étudiant
         /// </summary>
         /// <param name="obj">Etudiant à supprimer</param>
-        public void Delete(StudentViewModel obj)
+        public void Delete(int id)
         {
             var students = GetAll();
+            var foundStudent = students.SingleOrDefault(std => std.Id == id);
 
-            if (students.Contains(obj))
-                students.ToList().Remove(obj);
+            if (foundStudent != null)
+                students.ToList().Remove(foundStudent);
 
             // Sauvegarde
             Serialize(students, FileName);
