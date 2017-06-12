@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfStudentViewModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><StudentViewModel><Id>1</Id><StudentName>Daniel</StudentName><StudentFirstName>Cédric</StudentFirstName><StudentBirthDate>1987-10-19T00:00:00</StudentBirthDate></StudentViewModel></ArrayOfStudentViewModel>

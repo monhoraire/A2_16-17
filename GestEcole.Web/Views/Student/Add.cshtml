@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+
+@model GestEcole.Web.Models.Student.StudentViewModel
+
+<h2 class="page-header">Ajout d'un nouvel étudiant</h2>
+
+@using (Html.BeginForm("Create", "Student", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.StudentName)
+        @Html.TextBoxFor(m => m.StudentName, new { @class="form-control" })
+        @Html.ValidationMessageFor(m => m.StudentName)
+    </div>
+    <br />
+    @Html.LabelFor(m => m.StudentFirstName)
+    @Html.TextBoxFor(m => m.StudentFirstName)
+    @Html.ValidationMessageFor(m => m.StudentFirstName)
+    <br />
+    @Html.Label("studentBirthDate", "Date de naissance de l'étudiant")
+    @Html.TextBoxFor(m => m.StudentBirthDate)
+    <br />
+    <button type="submit">Valider</button>
+}
+
+@*<form id="formAddStudent" method="post" action="/Student/Create">
+
+    <label for="studentName">Nom de l'étudiant :</label>
+    <input type="text" name="studentName" />
+
+    <label for="studentFirstName">Prénom de l'étudiant :</label>
+    <input type="text" name="studentFirstName" />
+
+    <label for="studentBirthDate">Date de naissance de l'étudiant :</label>
+    <input type="date" name="studentBirthDate" />
+
+    <button type="submit">Valider</button>
+</form>*@
+
+

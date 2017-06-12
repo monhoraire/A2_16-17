@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model List<GestEcole.Web.Models.Student.StudentViewModel>
+
+<a href="/Student/Add">Nouvel étudiant</a>
+
+<h2>Liste des étudiants</h2>
+
+@if (!Model.Any())
+{
+    <h4 class="text-center">Aucun étudiant n'a été trouvé</h4>
+}
+else {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de Naissance</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.StudentName</td>
+                    <td>@student.StudentFirstName</td>
+                    <td>@student.StudentBirthDate</td>
+                    <td>@Html.ActionLink("Supprimer", "Delete", new { id = student.Id })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

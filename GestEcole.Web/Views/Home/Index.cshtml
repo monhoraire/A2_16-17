@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model List<string>
+
+<h2>Index @ViewData["identifiant"]</h2>
+
+<p>La valeur de Id défini dans le ViewBag vaut '@ViewBag.Identifiant'</p>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item</li>
+    }
+</ul>
