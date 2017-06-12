@@ -69,8 +69,8 @@ namespace GestEcole.Web.Controllers
 
             if (student != null)
             {
+                studentService.Delete(id);
                 ViewBag.Success = "L'étudiant a été supprimé avec succès";
-                studentService.Delete(student);
             }
 
             return View("Index", studentService.GetAll());
