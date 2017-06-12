@@ -30,11 +30,11 @@
     <div class="container body-content">
         @if(!string.IsNullOrEmpty(ViewBag.Error))
         {
-            <div class="alert alert-danger">ViewBag.Error</div>
+            <div class="alert alert-danger">@ViewBag.Error</div>
         }
         else if (!string.IsNullOrEmpty(ViewBag.Success))
         {
-            <div class="alert alert-success">ViewBag.Success</div>
+            <div class="alert alert-success">@ViewBag.Success</div>
         }
 
         @RenderBody()
