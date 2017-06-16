@@ -106,7 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DevoirsController.cs" />
+    <Compile Include="Controllers\GroupesController.cs" />
     <Compile Include="Controllers\MatieresController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\UtilisateursController.cs" />
     <Compile Include="Devoir.cs">
       <DependentUpon>Model.tt</DependentUpon>

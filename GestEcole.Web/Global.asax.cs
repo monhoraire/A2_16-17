@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace GestEcole.Web
 {
@@ -13,6 +14,12 @@ namespace GestEcole.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            var roles = Roles.GetAllRoles();
+            // 1. Créer les rôles (peut-être issus d'un SELECT en base de données)
+            //Roles.CreateRole("Formateur");
+            //Roles.CreateRole("Administrateur");
+            //Roles.CreateRole("Etudiant");
         }
     }
 }

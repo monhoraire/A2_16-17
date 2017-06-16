@@ -35,9 +35,16 @@ namespace GestEcole.Web.Controllers
             {
                 // 1. Recherche de l'utilisateur dans la bdd
 
-                // 2. Création du cookie d'authentification
+                // 2. Associer l'utilisateur au rôle
+                if (vm.Username == "CD")
+                    Roles.AddUserToRole(vm.Username, "Formateur");
+                if (vm.Username == "Yohann")
+                    Roles.AddUserToRole(vm.Username, "Administrateur");
+                else
+                    Roles.AddUserToRole(vm.Username, "Etudiant");
+
+                // 3. Création du cookie d'authentification
                 FormsAuthentication.SetAuthCookie(vm.Username, true);
-                
             }
 
             return Redirect("~/");

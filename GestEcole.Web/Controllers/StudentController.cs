@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace GestEcole.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Formateur,Administrateur")]
     public class StudentController : BaseController
     {
         private static readonly StudentService studentService = new StudentService();

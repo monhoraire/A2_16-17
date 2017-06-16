@@ -37,6 +37,11 @@
             <div class="alert alert-success">@ViewBag.Success</div>
         }
 
+        @if (User.IsInRole("Administrateur"))
+        {
+            <div class="alert alert-success">Salutations, Big boss ! ;)</div>
+        }
+
         @RenderBody()
         <hr />
         <footer>
