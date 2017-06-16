@@ -3,25 +3,26 @@
     ViewBag.Title = "Add";
 }
 
-@model GestEcole.Web.Models.Student.StudentViewModel
+@model GestEcole.Web.ViewModels.Student.AddStudentViewModel
 
 <h2 class="page-header">Ajout d'un nouvel étudiant</h2>
 
-@using (Html.BeginForm("Create", "Student", FormMethod.Post))
+@using (Html.BeginForm("Create", "Student", FormMethod.Get))
 {
     <div class="form-group">
-        @Html.LabelFor(m => m.StudentName)
-        @Html.TextBoxFor(m => m.StudentName, new { @class="form-control" })
-        @Html.ValidationMessageFor(m => m.StudentName)
+        @Html.LabelFor(m => m.Student.StudentName)
+        @Html.TextBoxFor(m => m.Student.StudentName, new { @class="form-control" })
+        @Html.ValidationMessageFor(m => m.Student.StudentName)
     </div>
     <br />
-    @Html.LabelFor(m => m.StudentFirstName)
-    @Html.TextBoxFor(m => m.StudentFirstName)
-    @Html.ValidationMessageFor(m => m.StudentFirstName)
+    @Html.LabelFor(m => m.Student.StudentFirstName)
+    @Html.TextBoxFor(m => m.Student.StudentFirstName)
+    @Html.ValidationMessageFor(m => m.Student.StudentFirstName)
     <br />
     @Html.Label("studentBirthDate", "Date de naissance de l'étudiant")
-    @Html.TextBoxFor(m => m.StudentBirthDate)
+    @Html.TextBoxFor(m => m.Student.StudentBirthDate)
     <br />
+    @Html.DropDownListFor(m => m.Student.SchoolId, Model.Schools.Select(sc => new SelectListItem() { Value = sc.Id.ToString(), Text = sc.Name }))
     <button type="submit">Valider</button>
 }
 

@@ -1,5 +1,6 @@
 ﻿using GestEcole.Web.Models.Student;
 using GestEcole.Web.Services;
+using GestEcole.Web.ViewModels.Student;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace GestEcole.Web.Controllers
         /// </summary>
         public ActionResult Add()
         {
-            return View();
+            return View(new AddStudentViewModel());
         }
 
         /// <summary>
@@ -39,16 +40,16 @@ namespace GestEcole.Web.Controllers
         /// <param name="studentFirstName">Prénom de l'étudiant</param>
         /// <param name="studentBirthDate">Date de naissance de l'étudiant</param>
         /// <returns>Redirection vers la page Index</returns>
-        [HttpPost]
+        [HttpGet]
         //public ActionResult Create(string studentName, string studentFirstName, string studentBirthDate)
-        public ActionResult Create(StudentViewModel viewModel)
+        public ActionResult Create(AddStudentViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View("Add", viewModel);
             }
             else {
-                studentService.Save(viewModel);
+                studentService.Save(viewModel.Student);
 
                 // Ajout de l'étudiant à la session en cours
                 //Students.Add(viewModel);

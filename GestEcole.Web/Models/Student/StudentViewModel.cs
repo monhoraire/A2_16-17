@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestEcole.Web.Models.School;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace GestEcole.Web.Models.Student
         /// Affecte ou obtient la date de naissance de l'étudiant
         /// </summary>
         public DateTime StudentBirthDate { get; set; }
+
+        public string SchoolId { get; set; }
         #endregion
 
         #region Methods

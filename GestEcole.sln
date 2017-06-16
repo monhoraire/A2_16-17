@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestEcole.Web", "GestEcole.Web\GestEcole.Web.csproj", "{7496DAF6-610B-4EDD-A11C-DB5916D5DC18}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GestEcole.DB", "GestEcole.DB\GestEcole.DB.sqlproj", "{08826E24-3801-44FA-A619-DF052D6C1356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestEcole.Api", "GestEcole.Api\GestEcole.Api.csproj", "{6965373C-BD8C-4903-88DC-B8206885C8A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,16 @@ Global
 		{7496DAF6-610B-4EDD-A11C-DB5916D5DC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7496DAF6-610B-4EDD-A11C-DB5916D5DC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7496DAF6-610B-4EDD-A11C-DB5916D5DC18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08826E24-3801-44FA-A619-DF052D6C1356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08826E24-3801-44FA-A619-DF052D6C1356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08826E24-3801-44FA-A619-DF052D6C1356}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{08826E24-3801-44FA-A619-DF052D6C1356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08826E24-3801-44FA-A619-DF052D6C1356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08826E24-3801-44FA-A619-DF052D6C1356}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6965373C-BD8C-4903-88DC-B8206885C8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6965373C-BD8C-4903-88DC-B8206885C8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6965373C-BD8C-4903-88DC-B8206885C8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6965373C-BD8C-4903-88DC-B8206885C8A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

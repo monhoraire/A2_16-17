@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GestEcoleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Devoir">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateDevoir" Type="datetime" Nullable="false" />
+          <Property Name="DatePublication" Type="datetime" Nullable="false" />
+          <Property Name="Coefficient" Type="float" Nullable="false" />
+          <Property Name="Matiere_Id" Type="int" Nullable="false" />
+          <Property Name="Formateur_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groupe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Matiere">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="Devoir_Id" />
+            <PropertyRef Name="Eleve_Id" />
+          </Key>
+          <Property Name="Devoir_Id" Type="int" Nullable="false" />
+          <Property Name="Eleve_Id" Type="int" Nullable="false" />
+          <Property Name="Valeur" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="125" Nullable="false" />
+          <Property Name="MotDePasse" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Groupe_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Devoir_Formateur">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Devoir" Type="Self.Devoir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Devoir">
+              <PropertyRef Name="Formateur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Devoir_Matiere">
+          <End Role="Matiere" Type="Self.Matiere" Multiplicity="1" />
+          <End Role="Devoir" Type="Self.Devoir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matiere">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Devoir">
+              <PropertyRef Name="Matiere_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Note_Devoir">
+          <End Role="Devoir" Type="Self.Devoir" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devoir">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="Devoir_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Note_Eleve">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="Eleve_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Utilisateur_Groupe">
+          <End Role="Groupe" Type="Self.Groupe" Multiplicity="1" />
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groupe">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Utilisateur">
+              <PropertyRef Name="Groupe_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestEcoleModelStoreContainer">
+          <EntitySet Name="Devoir" EntityType="Self.Devoir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groupe" EntityType="Self.Groupe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matiere" EntityType="Self.Matiere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Devoir_Formateur" Association="Self.fk_Devoir_Formateur">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Devoir" EntitySet="Devoir" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Devoir_Matiere" Association="Self.fk_Devoir_Matiere">
+            <End Role="Matiere" EntitySet="Matiere" />
+            <End Role="Devoir" EntitySet="Devoir" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Note_Devoir" Association="Self.fk_Note_Devoir">
+            <End Role="Devoir" EntitySet="Devoir" />
+            <End Role="Note" EntitySet="Note" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Note_Eleve" Association="Self.fk_Note_Eleve">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Note" EntitySet="Note" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Utilisateur_Groupe" Association="Self.fk_Utilisateur_Groupe">
+            <End Role="Groupe" EntitySet="Groupe" />
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GestEcoleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Devoir">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateDevoir" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatePublication" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Coefficient" Type="Double" Nullable="false" />
+          <Property Name="Matiere_Id" Type="Int32" Nullable="false" />
+          <Property Name="Formateur_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.fk_Devoir_Formateur" FromRole="Devoir" ToRole="Utilisateur" />
+          <NavigationProperty Name="Matiere" Relationship="Self.fk_Devoir_Matiere" FromRole="Devoir" ToRole="Matiere" />
+          <NavigationProperty Name="Notes" Relationship="Self.fk_Note_Devoir" FromRole="Devoir" ToRole="Note" />
+        </EntityType>
+        <EntityType Name="Groupe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_Utilisateur_Groupe" FromRole="Groupe" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Matiere">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Devoirs" Relationship="Self.fk_Devoir_Matiere" FromRole="Matiere" ToRole="Devoir" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="Devoir_Id" />
+            <PropertyRef Name="Eleve_Id" />
+          </Key>
+          <Property Name="Devoir_Id" Type="Int32" Nullable="false" />
+          <Property Name="Eleve_Id" Type="Int32" Nullable="false" />
+          <Property Name="Valeur" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Devoir" Relationship="Self.fk_Note_Devoir" FromRole="Note" ToRole="Devoir" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.fk_Note_Eleve" FromRole="Note" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="125" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MotDePasse" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Groupe_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Devoirs" Relationship="Self.fk_Devoir_Formateur" FromRole="Utilisateur" ToRole="Devoir" />
+          <NavigationProperty Name="Groupe" Relationship="Self.fk_Utilisateur_Groupe" FromRole="Utilisateur" ToRole="Groupe" />
+          <NavigationProperty Name="Notes" Relationship="Self.fk_Note_Eleve" FromRole="Utilisateur" ToRole="Note" />
+        </EntityType>
+        <Association Name="fk_Devoir_Formateur">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Devoir" Type="Self.Devoir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Devoir">
+              <PropertyRef Name="Formateur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Devoir_Matiere">
+          <End Role="Matiere" Type="Self.Matiere" Multiplicity="1" />
+          <End Role="Devoir" Type="Self.Devoir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matiere">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Devoir">
+              <PropertyRef Name="Matiere_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Note_Devoir">
+          <End Role="Devoir" Type="Self.Devoir" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devoir">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="Devoir_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Utilisateur_Groupe">
+          <End Role="Groupe" Type="Self.Groupe" Multiplicity="1" />
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groupe">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Utilisateur">
+              <PropertyRef Name="Groupe_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Note_Eleve">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="Eleve_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestEcoleEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Devoirs" EntityType="Self.Devoir" />
+          <EntitySet Name="Groupes" EntityType="Self.Groupe" />
+          <EntitySet Name="Matieres" EntityType="Self.Matiere" />
+          <EntitySet Name="Notes" EntityType="Self.Note" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <AssociationSet Name="fk_Devoir_Formateur" Association="Self.fk_Devoir_Formateur">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Devoir" EntitySet="Devoirs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Devoir_Matiere" Association="Self.fk_Devoir_Matiere">
+            <End Role="Matiere" EntitySet="Matieres" />
+            <End Role="Devoir" EntitySet="Devoirs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Note_Devoir" Association="Self.fk_Note_Devoir">
+            <End Role="Devoir" EntitySet="Devoirs" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Utilisateur_Groupe" Association="Self.fk_Utilisateur_Groupe">
+            <End Role="Groupe" EntitySet="Groupes" />
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Note_Eleve" Association="Self.fk_Note_Eleve">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GestEcoleModelStoreContainer" CdmEntityContainer="GestEcoleEntities">
+          <EntitySetMapping Name="Devoirs">
+            <EntityTypeMapping TypeName="GestEcoleModel.Devoir">
+              <MappingFragment StoreEntitySet="Devoir">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateDevoir" ColumnName="DateDevoir" />
+                <ScalarProperty Name="DatePublication" ColumnName="DatePublication" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="Matiere_Id" ColumnName="Matiere_Id" />
+                <ScalarProperty Name="Formateur_Id" ColumnName="Formateur_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groupes">
+            <EntityTypeMapping TypeName="GestEcoleModel.Groupe">
+              <MappingFragment StoreEntitySet="Groupe">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matieres">
+            <EntityTypeMapping TypeName="GestEcoleModel.Matiere">
+              <MappingFragment StoreEntitySet="Matiere">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="GestEcoleModel.Note">
+              <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="Devoir_Id" ColumnName="Devoir_Id" />
+                <ScalarProperty Name="Eleve_Id" ColumnName="Eleve_Id" />
+                <ScalarProperty Name="Valeur" ColumnName="Valeur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="GestEcoleModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+                <ScalarProperty Name="Groupe_Id" ColumnName="Groupe_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

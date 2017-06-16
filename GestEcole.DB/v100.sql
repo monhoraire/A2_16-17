@@ -21,7 +21,7 @@ CREATE TABLE Utilisateur(
 	MotDePasse NVARCHAR(32) NOT NULL,
 	Groupe_Id INT NOT NULL,
 	PRIMARY KEY(Id),
-	CONSTRAINT fk_Utilisateur_Groupe FOREIGN KEY(Groupe_Id) REFERENCES Utilisateur(Id),
+	CONSTRAINT fk_Utilisateur_Groupe FOREIGN KEY(Groupe_Id) REFERENCES Groupe(Id),
 	CONSTRAINT uk_Utilisateur UNIQUE(Email),
 	INDEX ix_Utilisateur_Email(Email)
 );
@@ -44,15 +44,33 @@ CREATE TABLE Devoir(
 	Formateur_Id iNT NOT NULL,
 	PRIMARY KEY(Id),
 	CONSTRAINT fk_Devoir_Matiere FOREIGN KEY(Matiere_Id) REFERENCES Matiere(Id),
-	CONSTRAINT fk_Devoir_Formateur FOREIGN KEY(Formateur_Id) REFERENCES Formateur(Id),
+	CONSTRAINT fk_Devoir_Formateur FOREIGN KEY(Formateur_Id) REFERENCES Utilisateur(Id),
 	CONSTRAINT uk_Devoir UNIQUE(DateDevoir,Matiere_Id),
 );
 
---IF NOT EXISTS(SELECT * FROM sysobjects WHERE Id = OBJECT_ID(N'[dbo].[Note]') AND OBJECTPROPERTY(Id, N'IsUserTable') = 1)
---CREATE TABLE Note(
-	
---);
+IF NOT EXISTS(SELECT * FROM sysobjects WHERE Id = OBJECT_ID(N'[dbo].[Note]') AND OBJECTPROPERTY(Id, N'IsUserTable') = 1)
+CREATE TABLE Note(
+	Devoir_Id INT NOT NULL,
+	Eleve_Id INT NOT NULL,
+	Valeur FLOAT NOT NULL DEFAULT 0
+	PRIMARY KEY(Devoir_Id, Eleve_Id),
+	CONSTRAINT fk_Note_Devoir FOREIGN KEY(Devoir_Id) REFERENCES Devoir(Id),
+	CONSTRAINT fk_Note_Eleve FOREIGN KEY(Eleve_Id) REFERENCES Utilisateur(Id)
+);
 
+INSERT INTO Groupe(Libelle)VALUES('Formateur'),('Eleve');
+INSERT INTO Utilisateur(Nom, Prenom, Email, MotDePasse, Groupe_Id) VALUES
+	('DANIEL','Cedric', 'cedric@monhoraire.fr', 'formation', 1),
+	('GINESTOU', 'Didier', 'd.ginestou@iia-laval.fr', 'toto123', 1),
+	('PAMISEUX', 'Marc-Henri', 'not24get@iia-laval.fr', 'not24get', 1),
+	('CHIRON', 'Anthony', 'a.chiron@iia-laval.fr', 'ac', 1),
+	('GILET', 'Marius', 'g.marius@iia-laval.fr', 'gm', 1),
+	('GUILLOCHEAU', 'Jeanne', 'j.guillocheau@iia-laval.fr', 'jg', 1),
+	('MORISSEAU', 'Valentin', 'v.morisseau@iia-laval.fr', 'vm', 1),
+	('PAUMIER', 'Florian', 'f.paumier@iia-laval.fr', 'fp', 1),
+	('RADIGUE', 'Damien', 'd.radigue@iia-laval.fr', 'dr', 1),
+	('SAUVAGE', 'Dimitri', 'd.sauvage@iia-laval.fr', 'ds', 1);
+INSERT INTO Matiere(Libelle)VALUES('ASP.Net'),('Linux'), ('Base de données');
 
 
 
