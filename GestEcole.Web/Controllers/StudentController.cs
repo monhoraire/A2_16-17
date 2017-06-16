@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace GestEcole.Web.Controllers
 {
+    [Authorize]
     public class StudentController : BaseController
     {
         private static readonly StudentService studentService = new StudentService();

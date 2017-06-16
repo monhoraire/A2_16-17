@@ -66,7 +66,7 @@ namespace GestEcole.Web.Services
         public void Save(StudentViewModel obj)
         {
             var students = GetAll().OrderBy(std => std.Id).ToList();
-            //if(!students.Any(std => std.Id == obj.Id))
+
             if (!students.Contains(obj))
             {
                 // Gestion de l'incrément

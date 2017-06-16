@@ -3,15 +3,32 @@
     ViewBag.Title = "Index";
 }
 
-@model List<string>
+@model GestEcole.Web.Models.Home.LoginViewModel
 
 <h2>Index @ViewData["identifiant"]</h2>
 
 <p>La valeur de Id défini dans le ViewBag vaut '@ViewBag.Identifiant'</p>
 
-<ul>
-    @foreach (var item in Model)
+@if (!User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
-        <li>@item</li>
+
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-3">
+                <div class="form-group">
+                    <label>Nom d'utilisateur : </label>
+                    @Html.TextBoxFor(vm => vm.Username, new { @class = "form-control" })
+                    <label>Mot de passe : </label>
+                    @Html.PasswordFor(vm => vm.Password, new { @class = "form-control" })
+                    <button type="submit"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Connexion</button>
+                </div>
+            </div>
+        </div>
     }
-</ul>
+}
+else
+{
+    <h1 class="page-header">Bonjour @User.Identity.Name</h1>
+    <a class="btn btn-danger" href="~/Home/Logout">Déconnexion</a>
+}
